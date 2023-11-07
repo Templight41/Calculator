@@ -58,6 +58,10 @@ body {
     font-size: 20px;
 }
 
+.buttons:active {
+    background-color: rgb(208, 208, 208);
+}
+
 .buttons div {
     
     cursor: context-menu;
