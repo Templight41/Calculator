@@ -1,12 +1,14 @@
 //defining elements
 let screen = document.querySelector('#screen')
+let buttons = document.querySelectorAll('.buttons')
+let body = document.querySelector('body');
 
 //assigning variables
-let buttons = document.querySelectorAll('.buttons')
 let nums = [0]
 let prevValue = 0;
 let currentValueFloat = 0;
 let currentValue = "";
+let currentValueStr = "";
 const operationStatus = false;
 let operation;
 let operations = ["C", "plusMinus", "percentage", "divide", "multiply", "minus", "plus", "equal"];
@@ -99,62 +101,83 @@ for(button of buttons) {
                 default:
                     break;
             }
-            // if(value=="C") {
-            //     nums = [0];
-            //     prevValue = 0;
-            //     currentValue = "";
-            //     screen.innerText = currentValue
-            // }
-            // else if (value=="plus") {
-            //     operation = "+";
-            //     currentValue = "";
-            //     prevValue = currentValueFloat + prevValue
-            //     screen.innerText = currentValueFloat
-            //     // prevValue = currentValueFloat;
-            // }
-            // else if(value == "minus") {
-            //     operation = "-";
-            //     currentValue = "";
-            //     prevValue = currentValueFloat - prevValue;
-            // }
-            // else if(value=="multiply") {
-            //     operation = "*";
-            //     prevValue = currentValueFloat;
-            //     currentValue = "";
-            // }
-            // else if(value == "divide") {
-            //     operation = "/";
-            //     prevValue = currentValueFloat;
-            //     currentValue = "";
-            // }
-            // else if(value == "percentage") {
-            //     operation = "%";
-            //     prevValue = currentValueFloat/100;
-            //     currentValue = "";
-            // }
-            // else if(value == "plusMinus") {
-            //     operation = "+-";
-            //     prevValue = -(currentValueFloat);
-            //     currentValue = "";
-            // }
-            // else if(value=="equal") {
-            //     console.log(currentValue);
-            //     if(operation=="+") {
-            //         prevValue = prevValue + currentValueFloat
-            //     }
-            //     else if(operation=="-") {
-            //         prevValue = prevValue - currentValueFloat
-            //     }
-            //     else if(operation=="*") {
-            //         prevValue = prevValue * currentValueFloat
-            //     }
-            //     else if(operation=="/") {
-            //         prevValue = prevValue / currentValueFloat
-            //     }
-            // }
             currentValueStr = prevValue + ""
             screen.innerText = currentValueStr.slice(0,15)
         }
     })
       
 }
+
+body.addEventListener('keydown', (e) => {
+    console.log(e.key)
+    keyPressed = e.key;
+    switch (keyPressed) {
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            currentValue += keyPressed;
+            currentValueFloat = parseFloat(currentValue)
+            screen.innerText= currentValue;
+            break;
+
+        case "+":
+            operation = "+";
+            currentValue = "";
+            prevValue = currentValueFloat + prevValue
+            screen.innerText = currentValueFloat
+            break;
+
+        case "-":
+            operation = "-";
+            currentValue = "";
+            prevValue = currentValueFloat - prevValue;
+            break;
+
+        case "*":
+            operation = "*";
+            prevValue = currentValueFloat;
+            currentValue = "";
+            break;
+
+        case "/":
+            operation = "/";
+            prevValue = currentValueFloat;
+            currentValue = "";
+            break;
+
+        case "Enter":
+            switch (operation) {
+                case "+":
+                    prevValue = prevValue + currentValueFloat
+                    break;
+
+                case "-":
+                    prevValue = prevValue - currentValueFloat
+                    break;
+
+                case "*":
+                    prevValue = prevValue * currentValueFloat
+                    break;
+
+                case "/":
+                    prevValue = prevValue / currentValueFloat
+                    break;
+
+                default:
+                    break;
+            }
+            currentValueStr = prevValue + ""
+            screen.innerText = currentValueStr.slice(0,15)
+            break;
+    
+        default:
+            break;
+    }
+})
